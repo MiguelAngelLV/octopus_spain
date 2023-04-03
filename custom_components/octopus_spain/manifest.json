@@ -1,0 +1,16 @@
+{
+  "domain": "octopus_spain",
+  "name": "Octopus Spain",
+  "version": "0.1.0",
+  "config_flow": true,
+  "documentation": "https://github.com/MiguelAngelLV/octopus_spain",
+  "requirements": ["python-graphql-client==0.4.3"],
+  "ssdp": [],
+  "zeroconf": [],
+  "homekit": {},
+  "dependencies": [],
+  "codeowners": [
+    "@miguelangellv"
+  ],
+  "iot_class": "local_polling"
+}
