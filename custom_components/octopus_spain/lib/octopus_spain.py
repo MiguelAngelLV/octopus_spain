@@ -46,7 +46,7 @@ class OctopusSpain:
             query($account: String!) {
                 accountBillingInfo(accountNumber: $account) {
                     ledgers {
-                        statementsWithDetails(last: 1) {
+                        statementsWithDetails(first: 1) {
                             edges {
                                 node {
                                     amount
