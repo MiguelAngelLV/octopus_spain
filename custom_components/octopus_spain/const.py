@@ -5,4 +5,4 @@ DOMAIN = "octopus_spain"
 CONF_EMAIL = 'email'
 CONF_PASSWORD = 'password'
 
-UPDATE_INTERVAL = 18
+UPDATE_INTERVAL = 2  # Hours
