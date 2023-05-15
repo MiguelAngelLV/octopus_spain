@@ -15,7 +15,6 @@ from homeassistant.const import (
 
 from homeassistant.components.sensor import (
     STATE_CLASS_MEASUREMENT,
-    DEVICE_CLASS_MONETARY,
     SensorEntityDescription, SensorEntity
 )
 from homeassistant.config_entries import ConfigEntry
@@ -70,7 +69,6 @@ class OctopusSolarWallet(CoordinatorEntity, SensorEntity):
             key=f"solar_wallet_{account}",
             icon="mdi:piggy-bank-outline",
             native_unit_of_measurement=CURRENCY_EURO,
-            device_class=DEVICE_CLASS_MONETARY,
             state_class=STATE_CLASS_MEASUREMENT
         )
 
@@ -101,7 +99,6 @@ class OctopusInvoice(CoordinatorEntity, SensorEntity):
             key=f"last_invoice_{account}",
             icon="mdi:currency-eur",
             native_unit_of_measurement=CURRENCY_EURO,
-            device_class=DEVICE_CLASS_MONETARY,
             state_class=STATE_CLASS_MEASUREMENT
         )
 

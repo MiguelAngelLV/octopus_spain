@@ -1,7 +1,7 @@
 from python_graphql_client import GraphqlClient
 from datetime import timedelta, datetime
-import octopus_spain.const as octopus_spain_constants
 
+GRAPH_QL_ENDPOINT = "https://api.oees-kraken.energy/v1/graphql/"
 
 class OctopusSpain:
 
@@ -20,7 +20,7 @@ class OctopusSpain:
         """
         variables = {"input": {"email": self._email, "password": self._password}}
 
-        client = GraphqlClient(endpoint=octopus_spain_constants.GRAPH_QL_ENDPOINT)
+        client = GraphqlClient(endpoint=GRAPH_QL_ENDPOINT)
         response = await client.execute_async(mutation, variables)
         self._token = response['data']['obtainKrakenToken']['token']
 
@@ -38,10 +38,10 @@ class OctopusSpain:
             """
 
         headers = {"authorization": self._token}
-        client = GraphqlClient(endpoint=octopus_spain_constants.GRAPH_QL_ENDPOINT, headers=headers)
+        client = GraphqlClient(endpoint=GRAPH_QL_ENDPOINT, headers=headers)
         response = await client.execute_async(query)
 
-        return list(map(lambda a: a['number'], response['data']['getAccountNames']['viewer']['accounts']))
+        return list(map(lambda a: a['number'], response['data']['viewer']['accounts']))
 
     async def account(self, account: str):
         query = """
@@ -64,7 +64,7 @@ class OctopusSpain:
             }
         """
         headers = {"authorization": self._token}
-        client = GraphqlClient(endpoint=octopus_spain_constants.GRAPH_QL_ENDPOINT, headers=headers)
+        client = GraphqlClient(endpoint=GRAPH_QL_ENDPOINT, headers=headers)
         response = await client.execute_async(query, {"account": account})
         ledger = response['data']['accountBillingInfo']['ledgers'][0]
         invoice = ledger['statementsWithDetails']['edges'][0]['node']
