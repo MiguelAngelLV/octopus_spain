@@ -73,7 +73,7 @@ class OctopusSpain:
         data = {
             "solar_wallet": float(ledger['balance']) / 100,
             "last_invoice": {
-                "amount": invoice['amount'],
+                "amount": invoice['amount'] if invoice['amount'] else 0,
                 "issued": datetime.fromisoformat(invoice['issuedDate']).date(),
                 "start": (datetime.fromisoformat(invoice['consumptionStartDate']) + timedelta(hours=2)).date(),
                 "end": (datetime.fromisoformat(invoice['consumptionEndDate']) - timedelta(seconds=1)).date(),
