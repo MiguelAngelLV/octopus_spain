@@ -78,13 +78,15 @@ class OctopusSpain:
                 solar_wallet_ledger = ledger
             elif ledger["ledgerType"] == ELECTRICITY_LEDGER:
                 electricity_ledger = ledger
-        if not solar_wallet_ledger or not electricity_ledger:
-            raise Exception("Ledgers not found")
+        if not electricity_ledger:
+            raise Exception("Electricity ledger not found")
         invoice = electricity_ledger["statementsWithDetails"]["edges"][0]["node"]
 
         # Los timedelta son bastante chapuzas, habrá que arreglarlo
         data = {
-            "solar_wallet": float(solar_wallet_ledger["balance"]) / 100,
+            "solar_wallet": (float(solar_wallet_ledger["balance"]) / 100)
+            if solar_wallet_ledger
+            else 0,
             "last_invoice": {
                 "amount": invoice["amount"] if invoice["amount"] else 0,
                 "issued": datetime.fromisoformat(invoice["issuedDate"]).date(),
