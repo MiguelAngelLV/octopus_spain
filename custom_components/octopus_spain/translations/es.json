@@ -16,8 +16,10 @@
       }
     }
   },
-
   "options": {
+    "error": {
+      "invalid_auth": "Email o contraseña inválidos."
+    },
     "step": {
       "init": {
         "title": "Octopus Energy Spain.",
