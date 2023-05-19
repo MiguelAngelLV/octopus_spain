@@ -46,14 +46,16 @@ class OctopusCoordinator(DataUpdateCoordinator):
     def __init__(self, hass: HomeAssistant, email: str, password: str):
         super().__init__(hass=hass, logger=_LOGGER, name="Octopus Spain", update_interval=timedelta(hours=UPDATE_INTERVAL))
         self._api = OctopusSpain(email, password)
+        self._data = {}
 
     async def _async_update_data(self):
-        data = {}
-        await self._api.login()
-        accounts = await self._api.accounts()
-        for account in accounts:
-            data[account] = await self._api.account(account)
-        return data
+        if await self._api.login():
+            self._data = {}
+            accounts = await self._api.accounts()
+            for account in accounts:
+                self._data[account] = await self._api.account(account)
+
+        return self._data
 
 
 class OctopusSolarWallet(CoordinatorEntity, SensorEntity):

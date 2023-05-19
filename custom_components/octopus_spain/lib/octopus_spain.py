@@ -25,7 +25,12 @@ class OctopusSpain:
 
         client = GraphqlClient(endpoint=GRAPH_QL_ENDPOINT)
         response = await client.execute_async(mutation, variables)
+
+        if response["errors"] is not None:
+            return False
+
         self._token = response["data"]["obtainKrakenToken"]["token"]
+        return True
 
     async def accounts(self):
         query = """
@@ -71,33 +76,22 @@ class OctopusSpain:
         client = GraphqlClient(endpoint=GRAPH_QL_ENDPOINT, headers=headers)
         response = await client.execute_async(query, {"account": account})
         ledgers = response["data"]["accountBillingInfo"]["ledgers"]
-        solar_wallet_ledger = None
-        electricity_ledger = None
-        for ledger in ledgers:
-            if ledger["ledgerType"] == SOLAR_WALLET_LEDGER:
-                solar_wallet_ledger = ledger
-            elif ledger["ledgerType"] == ELECTRICITY_LEDGER:
-                electricity_ledger = ledger
-        if not electricity_ledger:
+        electricity = next(filter(lambda x: x['ledgerType'] == ELECTRICITY_LEDGER, ledgers))
+        solar_wallet = next(filter(lambda x: x['ledgerType'] == SOLAR_WALLET_LEDGER, ledgers))
+
+        if not electricity:
             raise Exception("Electricity ledger not found")
-        invoice = electricity_ledger["statementsWithDetails"]["edges"][0]["node"]
+
+        invoice = electricity["statementsWithDetails"]["edges"][0]["node"]
 
         # Los timedelta son bastante chapuzas, habrá que arreglarlo
         data = {
-            "solar_wallet": (float(solar_wallet_ledger["balance"]) / 100)
-            if solar_wallet_ledger
-            else 0,
+            "solar_wallet": (float(solar_wallet["balance"]) / 100) if solar_wallet else 0,
             "last_invoice": {
                 "amount": invoice["amount"] if invoice["amount"] else 0,
                 "issued": datetime.fromisoformat(invoice["issuedDate"]).date(),
-                "start": (
-                    datetime.fromisoformat(invoice["consumptionStartDate"])
-                    + timedelta(hours=2)
-                ).date(),
-                "end": (
-                    datetime.fromisoformat(invoice["consumptionEndDate"])
-                    - timedelta(seconds=1)
-                ).date(),
+                "start": (datetime.fromisoformat(invoice["consumptionStartDate"]) + timedelta(hours=2)).date(),
+                "end": (datetime.fromisoformat(invoice["consumptionEndDate"]) - timedelta(seconds=1)).date(),
             },
         }
 
