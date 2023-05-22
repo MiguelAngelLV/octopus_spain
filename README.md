@@ -42,7 +42,6 @@ title: Octopus Spain
 type: entities
 entities:
   - entity: sensor.ultima_factura_octopus
-    secondary_info: Fin
   - entity: sensor.solar_wallet
   - type: attribute
     entity: sensor.ultima_factura_octopus
