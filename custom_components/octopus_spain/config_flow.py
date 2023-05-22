@@ -55,7 +55,7 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
         api = OctopusSpain(user_input[CONF_EMAIL], user_input[CONF_PASSWORD])
         if await api.login():
-            return self.async_create_entry(data=user_input)
+            return self.async_create_entry(data=user_input, title="Octopus Spain")
         else:
             return self.async_show_form(step_id="user", data_schema=SCHEMA, errors={'base': 'invalid_auth'})
 
@@ -87,7 +87,7 @@ class OptionFlowHandler(config_entries.OptionsFlow):
 
         api = OctopusSpain(user_input[CONF_EMAIL], user_input[CONF_PASSWORD])
         if await api.login():
-            return self.async_create_entry(data=user_input)
+            return self.async_create_entry(data=user_input, title="Octopus Spain")
         else:
             return self.async_show_form(step_id="init", data_schema=SCHEMA, errors={'base': 'invalid_auth'})
 
