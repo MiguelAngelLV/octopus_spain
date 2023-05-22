@@ -1,8 +1,8 @@
-# Componente Octopus Spain para Home Assistant
+_# Componente Octopus Spain para Home Assistant
 
 ## ¿Qué es Octopus Energy?
 
-[Octopus Energy](https://octopusenergy.es/) es una comercilizadora eléctrica española.
+[Octopus Energy](https://octopusenergy.es/) es una comercializadora eléctrica española.
 
 Entre otras ventajas, dispone de la **Solar Wallet**, un servicio que permite acumular crédito obtenido
 por los excedentes solares para reducir a 0€ la factura así como acumular para posteriores facturas.
@@ -17,7 +17,18 @@ Este componente ha sido revisado por los ingenerios de _Octopus Energy_ y ha rec
 
 ## Instalación
 
-Puedes instalar el componente usando HACS, para ello basta con añadir este repositorio a los repositorios personalizados y buscarlo escribiendo «octopus spain».
+Puedes instalar el componente usando HACS:
+
+### Directa usando _My Home Assistant_
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=miguelangellv&repository=octopus_spain&category=integration)
+
+
+### Manual
+```
+HACS -> Integraciones -> Tres puntitos -> Repositorios Personalizados
+```
+Copias la URL del reposotiro ( https://github.com/MiguelAngelLV/octopus_spain ), como categoría seleccionas _Integración_ y pulsas en _Añadir_.
+
 
 ## Configuración
 
