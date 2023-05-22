@@ -26,7 +26,7 @@ class OctopusSpain:
         client = GraphqlClient(endpoint=GRAPH_QL_ENDPOINT)
         response = await client.execute_async(mutation, variables)
 
-        if response["errors"] is not None:
+        if "errors" in response:
             return False
 
         self._token = response["data"]["obtainKrakenToken"]["token"]
