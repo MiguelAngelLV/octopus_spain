@@ -38,7 +38,7 @@ cuando se produzca un cambio en el atributo "Emitida" de última fáctura.
 Una forma de representar los datos sería esta:
 
 ```yaml
-title: Octopus Energy Spain
+title: Octopus Spain
 type: entities
 entities:
   - entity: sensor.ultima_factura_octopus
