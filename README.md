@@ -1,4 +1,4 @@
-_# Componente Octopus Spain para Home Assistant
+# Componente Octopus Spain para Home Assistant
 
 ## ¿Qué es Octopus Energy?
 
