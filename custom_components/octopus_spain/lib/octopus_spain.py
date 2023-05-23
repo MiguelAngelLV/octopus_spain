@@ -82,10 +82,23 @@ class OctopusSpain:
         if not electricity:
             raise Exception("Electricity ledger not found")
 
-        invoice = electricity["statementsWithDetails"]["edges"][0]["node"]
+        invoices = electricity["statementsWithDetails"]["edges"]
+
+        if len(invoices) == 0:
+            return {
+                'solar_wallet': None,
+                'last_invoice': {
+                    'amount': None,
+                    'issued': None,
+                    'start': None,
+                    'end': None
+                }
+            }
+
+        invoice = invoices[0]["node"]
 
         # Los timedelta son bastante chapuzas, habrá que arreglarlo
-        data = {
+        return {
             "solar_wallet": (float(solar_wallet["balance"]) / 100) if solar_wallet else 0,
             "last_invoice": {
                 "amount": invoice["amount"] if invoice["amount"] else 0,
@@ -94,5 +107,3 @@ class OctopusSpain:
                 "end": (datetime.fromisoformat(invoice["consumptionEndDate"]) - timedelta(seconds=1)).date(),
             },
         }
-
-        return data
