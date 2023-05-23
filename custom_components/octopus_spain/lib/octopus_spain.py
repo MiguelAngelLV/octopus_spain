@@ -76,8 +76,8 @@ class OctopusSpain:
         client = GraphqlClient(endpoint=GRAPH_QL_ENDPOINT, headers=headers)
         response = await client.execute_async(query, {"account": account})
         ledgers = response["data"]["accountBillingInfo"]["ledgers"]
-        electricity = next(filter(lambda x: x['ledgerType'] == ELECTRICITY_LEDGER, ledgers))
-        solar_wallet = next(filter(lambda x: x['ledgerType'] == SOLAR_WALLET_LEDGER, ledgers))
+        electricity = next(filter(lambda x: x['ledgerType'] == ELECTRICITY_LEDGER, ledgers), None)
+        solar_wallet = next(filter(lambda x: x['ledgerType'] == SOLAR_WALLET_LEDGER, ledgers), {'balance': 0})
 
         if not electricity:
             raise Exception("Electricity ledger not found")
