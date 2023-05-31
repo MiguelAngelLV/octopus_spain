@@ -44,8 +44,8 @@ Una vez configurado el componente, tendrás dos entidades por cada cuenta que te
 ### Solar Wallet
 La entidad Solar Wallet devuelve el valor actual de tu Solar Wallet. Este valor (en euros) estará actualizado al de tu última factura. Actualmente no se puede consultar en tiempo real.
 
-### Última Factura Enviada
-Esta entidad devuelve el coste de tu última factura. En general, si tienes Solar Wallet, debería ser 0€.
+### Última Factura
+Esta entidad devuelve el coste de tu última factura.
 
 Adicionalmente, en los atributos, están disponibles las fechas de emisión de esa factura así el periodo (inicio y final) de la misma.
 
