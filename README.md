@@ -38,11 +38,21 @@ El asistente te solicitará tu email y contraseña de [Octopus Energy](https://o
 
 
 
+## Entidades
+Una vez configurado el componente, tendrás dos entidades por cada cuenta que tengas asociada a tu email (normalmente una).
+
+### Solar Wallet
+La entidad Solar Wallet devuelve el valor actual de tu Solar Wallet. Este valor (en euros) estará actualizado al de tu última factura. Actualmente no se puede consultar en tiempo real.
+
+### Última Factura
+Esta entidad devuelve el coste de tu última factura.
+
+Adicionalmente, en los atributos, están disponibles las fechas de emisión de esa factura así el periodo (inicio y final) de la misma.
+
+
 ## Uso
-Una vez configurado el componente, tendrás dos sensores por cada cuenta que tengas asociada a tu email (normalmente una).
 
-
-Podrás usar estos sensores para visualizar el estado así como crear automatizaciones para informate, por ejemplo, 
+Podrás usar estas etidades para visualizar el estado así como crear automatizaciones para informate, por ejemplo, 
 cuando se produzca un cambio en el atributo "Emitida" de última fáctura.
 
 
@@ -72,3 +82,8 @@ entities:
 ```
 
 ![card.png](img/card.png)
+
+## Videotutorial
+
+[![Octopus Spain](http://img.youtube.com/vi/fJ1W_wACbfw/0.jpg)](http://www.youtube.com/watch?v=fJ1W_wACbfw)
+
