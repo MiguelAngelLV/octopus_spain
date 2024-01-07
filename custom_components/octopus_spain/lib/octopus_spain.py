@@ -99,7 +99,8 @@ class OctopusSpain:
 
         # Los timedelta son bastante chapuzas, habrá que arreglarlo
         return {
-            "solar_wallet": (float(solar_wallet["balance"]) / 100) if solar_wallet else 0,
+            "solar_wallet": (float(solar_wallet["balance"]) / 100),
+            "octopus_credit": (float(electricity["balance"]) / 100),
             "last_invoice": {
                 "amount": invoice["amount"] if invoice["amount"] else 0,
                 "issued": datetime.fromisoformat(invoice["issuedDate"]).date(),

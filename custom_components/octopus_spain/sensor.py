@@ -35,7 +35,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
 
     accounts = coordinator.data.keys()
     for account in accounts:
-        sensors.append(OctopusSolarWallet(account, coordinator, len(accounts) == 1))
+        sensors.append(OctopusWallet(account, 'solar_wallet', 'Solar Wallet', coordinator, len(accounts) == 1))
+        sensors.append(OctopusWallet(account, 'octopus_credit', 'Octopus Credit', coordinator, len(accounts) == 1))
         sensors.append(OctopusInvoice(account, coordinator, len(accounts) == 1))
 
     async_add_entities(sensors)
@@ -58,17 +59,18 @@ class OctopusCoordinator(DataUpdateCoordinator):
         return self._data
 
 
-class OctopusSolarWallet(CoordinatorEntity, SensorEntity):
+class OctopusWallet(CoordinatorEntity, SensorEntity):
 
-    def __init__(self, account: str, coordinator, single: bool):
+    def __init__(self, account: str, key: str, name: str, coordinator, single: bool):
         super().__init__(coordinator=coordinator)
         self._state = None
+        self._key = key
         self._account = account
         self._attrs: Mapping[str, Any] = {}
-        self._attr_name = "Solar Wallet" if single else f"Solar Wallet ({account})"
-        self._attr_unique_id = f"solar_wallet_{account}"
+        self._attr_name = f"{name}" if single else f"{name} ({account})"
+        self._attr_unique_id = f"{key}_{account}"
         self.entity_description = SensorEntityDescription(
-            key=f"solar_wallet_{account}",
+            key=f"{key}_{account}",
             icon="mdi:piggy-bank-outline",
             native_unit_of_measurement=CURRENCY_EURO,
             state_class=STATE_CLASS_MEASUREMENT
@@ -81,7 +83,7 @@ class OctopusSolarWallet(CoordinatorEntity, SensorEntity):
     @callback
     def _handle_coordinator_update(self) -> None:
         """Handle updated data from the coordinator."""
-        self._state = self.coordinator.data[self._account]['solar_wallet']
+        self._state = self.coordinator.data[self._account][self._key]
         self.async_write_ha_state()
 
     @property
