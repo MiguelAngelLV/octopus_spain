@@ -44,6 +44,9 @@ Una vez configurado el componente, tendrás dos entidades por cada cuenta que te
 ### Solar Wallet
 La entidad Solar Wallet devuelve el valor actual de tu Solar Wallet. Este valor (en euros) estará actualizado al de tu última factura. Actualmente no se puede consultar en tiempo real.
 
+## Octopus Credit
+La entidad Octopus Credit devuelve el valor actual de tu crédito en Octopus obtenido por cuentas referedidas u otras posibles bonificaciones.
+
 ### Última Factura
 Esta entidad devuelve el coste de tu última factura.
 
@@ -64,6 +67,7 @@ type: entities
 entities:
   - entity: sensor.ultima_factura_octopus
   - entity: sensor.solar_wallet
+  - entity: sensor.octopus_credit
   - type: attribute
     entity: sensor.ultima_factura_octopus
     name: Inicio
